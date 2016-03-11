@@ -212,12 +212,12 @@ $(document).ready(function() {
       for (i = 0; i < jd.length; i++) {
         if (jd[i].alliances.red.score == -1) {
           currentMatchNumber = jd[i].match_number;
-          $('#currentmatch').append('Current Match Number: ' + jd[i].matchnum);
+          $('#currentmatch').append('Current Match Number: ' + jd[i].match_number);
           break;
         }
       }
       for(i = 0; i < jd.length; i++) {
-        if(jd[i].alliances.red.score == -1 && (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.blue.teams[0] == teamNumber || jd[i].alliances.blue.teams[1] == teamNumber || jd[i].alliances.blue.teams[2] == teamNumber)) {
+        if(jd[i].alliances.red.score == -1 && (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.blue.teams[0] == 'frc'+teamNumber || jd[i].alliances.blue.teams[1] == 'frc'+teamNumber || jd[i].alliances.blue.teams[2] == 'frc'+teamNumber)) {
           differience = jd[i].match_number - currentMatchNumber;
           $('#currentmatch').append(', Our Next Match: ' + jd[i].match_number + ', Up in <b>' + differience + '</b> matches');
           break;
