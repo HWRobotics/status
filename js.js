@@ -41,7 +41,7 @@ $(document).ready(function() {
     },
     async: false,
   });
-
+console.log("test");
   $.ajax({
     url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches' + appID,
     dataType: 'json',
