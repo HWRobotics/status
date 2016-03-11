@@ -93,8 +93,14 @@ $(document).ready(function() {
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
           if (jd[i].alliances.blue.teams[2] == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
           else scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + ", " + b3 + '</td>');
-          scoreshtml += ('<td class="red">' + jd[i].alliances.red.score + '</td>');
-          scoreshtml += ('<td class="blue">' + jd[i].alliances.blue.score + '</td>');
+          if(jd[i].alliances.red.score == -1)
+            scoreshtml += ('<td class="red"> - </td>');
+          else
+            scoreshtml += ('<td class="red">' + jd[i].alliances.red.score + '</td>')
+          if(jd[i].alliances.blue.score == -1);
+            scoreshtml += ('<td class="blue"> - </td>');
+          else
+            scoreshtml += ('<td class="blue">' + jd[i].alliances.blue.score + '</td>');
           if (jd[i].alliances.blue.score == -1)
             scoreshtml += ('<td>Unplayed</td>');
           else if ((jd[i].alliances.red.teams[0] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[1] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[2] == 'frc'+teamNumber)) {
