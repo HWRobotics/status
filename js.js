@@ -49,6 +49,7 @@ $(document).ready(function() {
       jd.sort(function(a, b){
         return a.match_number - b.match_number;
       });
+      $('#status.append'(jd[0].red.teams));
       for (i = 0; i < jd.length; i++) {
         if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
           if (jd[i].blue.score == -1) {
@@ -75,7 +76,7 @@ $(document).ready(function() {
       var highScore = 0;
       var lowScore = 5000;
       for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
+        if (jd[i].red.teams == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
           scoreshtml += ('<tr>');
           scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
           r1 = jd[i].red.teams[0];
