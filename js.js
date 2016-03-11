@@ -140,35 +140,33 @@ $(document).ready(function() {
   });
   //Handle rankings from robotevents
   $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
+    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/rankings' + appID,
     dataType: 'json',
-    success: function(input) {
-      var jd = jQuery.parseJSON(CSV2JSON(input));
+    success: function(jd) {
       if (jd.length < 3) {} else {
         for (i = 0; i < 3; i++) {
-          $('#' + (i + 1)).append('<td>' + jd[i].rank + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i].teamnum + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i].wins + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i].wp + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i].sp + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][0] + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][1] + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][7] + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][2] + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][8] + '</td>');
         }
       }
     },
     async: false,
   });
   $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
+    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/rankings' + appID,
     dataType: 'json',
-    success: function(input) {
-      var jd = jQuery.parseJSON(CSV2JSON(input));
+    success: function(jd) {
       if (jd.length == 0) {} else {
         for (i = 0; i < jd.length; i++) {
           if (jd[i].teamnum == teamNumber) {
-            $('#us').append('<td><b>' + jd[i].rank + '</b></td>');
-            $('#us').append('<td><b>' + jd[i].teamnum + '</b></td>');
-            $('#us').append('<td><b>' + jd[i].wins + '-' + jd[i].losses + '-' + jd[i].ties + '</b></td>');
-            $('#us').append('<td><b>' + jd[i].wp + '</b></td>');
-            $('#us').append('<td><b>' + jd[i].sp + '</b></td>');
+            $('#us').append('<td><b>' + jd[i][0] + '</b></td>');
+            $('#us').append('<td><b>' + jd[i][1] + '</b></td>');
+            $('#us').append('<td><b>' + jd[i][7] + '</b></td>');
+            $('#us').append('<td><b>' + jd[i][2] + '</b></td>');
+            $('#us').append('<td><b>' + jd[i][8] + '</b></td>');
           }
         }
       }
@@ -178,24 +176,23 @@ $(document).ready(function() {
 
   //Handle rankings - from robotevents
   $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
+    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/rankings' + appID,
     dataType: 'json',
-    success: function(input) {
-      scoreshtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>W-L-T</th><th>WP</th><th>SP</th></tr>';
-      var jd = jQuery.parseJSON(CSV2JSON(input));
+    success: function(jd) {
+      scoreshtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>W-L-T</th><th>Ranking Points</th><th>Played</th></tr>';
       for (i = 0; i < jd.length - 1; i++) {
         if (jd[i].teamnum == teamNumber) {
-          scoreshtml += ('<td class=yellow><b>' + jd[i].rank + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i].teamnum + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i].wins + '-' + jd[i].losses + '-' + jd[i].ties + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i].wp + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i].sp + '</b></td></tr>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][0] + '</b></td>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][1] + '</b></td>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][7]'</b></td>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][2] + '</b></td>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][8] + '</b></td></tr>');
         } else {
-          scoreshtml += ('<td>' + jd[i].rank + '</td>');
-          scoreshtml += ('<td>' + jd[i].teamnum + '</td>');
-          scoreshtml += ('<td>' + jd[i].wins + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
-          scoreshtml += ('<td>' + jd[i].wp + '</td>');
-          scoreshtml += ('<td>' + jd[i].sp + '</td></tr>');
+          scoreshtml += ('<td>' + jd[i][0] + '</td>');
+          scoreshtml += ('<td>' + jd[i][1] + '</td>');
+          scoreshtml += ('<td>' + jd[i][7] + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
+          scoreshtml += ('<td>' + jd[i][2] + '</td>');
+          scoreshtml += ('<td>' + jd[i][8] + '</td></tr>');
         }
       }
       scoreshtml += '</table>';
@@ -203,178 +200,6 @@ $(document).ready(function() {
     },
     async: false,
   });
-  //handle robot skills - from RobotEvents
-  $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/skills_robot/?format=csv&sku=' + mySKU + '&div=',
-    dataType: 'json',
-    success: function(input) {
-      var jd = jQuery.parseJSON(CSV2JSON(input));
-      roboSkillsHtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>Score</th><th>Attempts</th></tr>';
-      for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].teamnum == teamNumber) {
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].rank + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].team + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].highscore + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].attempts + '</b></td></tr>');
-        } else {
-          roboSkillsHtml += ('<td>' + jd[i].rank + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].team + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].highscore + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].attempts + '</td></tr>');
-        }
-      }
-      roboSkillsHtml += '</table>';
-      $('#roboskills').append(roboSkillsHtml);
-    },
-    async: false,
-  });
-
-  //handle programming sills - from robotevents
-  $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/skills_programming/?format=csv&sku=' + mySKU + '&div=',
-    dataType: 'json',
-    success: function(input) {
-      var jd = jQuery.parseJSON(CSV2JSON(input));
-      roboSkillsHtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>Score</th><th>Attempts</th></tr>';
-      for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].teamnum == teamNumber) {
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].rank + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].team + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].highscore + '</b></td>');
-          roboSkillsHtml += ('<td class=yellow><b>' + jd[i].attempts + '</b></td></tr>');
-        } else {
-          roboSkillsHtml += ('<td>' + jd[i].rank + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].team + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].highscore + '</td>');
-          roboSkillsHtml += ('<td>' + jd[i].attempts + '</td></tr>');
-        }
-      }
-      roboSkillsHtml += '</table>';
-      $('#progskills').append(roboSkillsHtml);
-    },
-    async: false,
-  });
-  //Robot skills high score - from vexdb
-  $.ajax({
-    url: 'http://api.vexdb.io/v1/get_skills?season_rank=true&rank=1&program=VRC&season=current&type=0',
-    dataType: 'json',
-    success: function(jd) {
-      $('#robohighscore').append(jd.result[0].team + " (" + jd.result[0].attempts + " attempts): " + jd.result[0].score);
-    },
-    async: false,
-  });
-
-  //programming skills high score - from vexdb
-  $.ajax({
-    url: 'http://api.vexdb.io/v1/get_skills?season_rank=true&rank=1&program=VRC&season=current&type=1',
-    dataType: 'json',
-    success: function(jd) {
-      $('#proghighscore').append(jd.result[0].team + " (" + jd.result[0].attempts + " attempts): " + jd.result[0].score);
-    },
-    async: false,
-  });
-  if (!skillsCompetition) {
-    $.ajax({
-      url: ('http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1'),
-      dataType: 'json',
-      success: function(input) {
-        var jd = jQuery.parseJSON(CSV2JSON(input));
-        currentMatchNumber = 0;
-        differience = 0;
-        for (i = 0; i < jd.length; i++) {
-          if (jd[i].scored == 'False') {
-            currentMatchNumber = jd[i].matchnum;
-            $('#currentmatch').append('Current Match Number: ' + jd[i].matchnum);
-            break;
-          }
-        }
-        /*
-        for(i = 0; i<jd.length; i++) {
-          if(jd[i].scored == 'False' && (jd[i].red1 == teamNumber || jd[i].red2 == teamNumber || jd[i].red3 == teamNumber || jd[i].blue1 == teamNumber || jd[i].blue2 == teamNumber || jd[i].blue3 == teamNumber)) {
-            differience = jd[i].matchnum - currentMatchNumber;
-            $('#currentmatch').append(', Our Next Match: ' + jd[i].matchnum + ', Up in <b>' + differience + '</b> matches');
-            break;
-          }
-        }
-        */
-      },
-      async: false,
-    });
-  }
-});
-
-function CSVToArray(strData, strDelimiter) {
-  // Check to see if the delimiter is defined. If not,
-  // then default to comma.
-  strDelimiter = (strDelimiter || ",");
-  // Create a regular expression to parse the CSV values.
-  var objPattern = new RegExp((
-    // Delimiters.
-    "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-    // Quoted fields.
-    "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-    // Standard fields.
-    "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi");
-  // Create an array to hold our data. Give the array
-  // a default empty first row.
-  var arrData = [
-    []
-  ];
-  // Create an array to hold our individual pattern
-  // matching groups.
-  var arrMatches = null;
-  // Keep looping over the regular expression matches
-  // until we can no longer find a match.
-  while (arrMatches = objPattern.exec(strData)) {
-    // Get the delimiter that was found.
-    var strMatchedDelimiter = arrMatches[1];
-    // Check to see if the given delimiter has a length
-    // (is not the start of string) and if it matches
-    // field delimiter. If id does not, then we know
-    // that this delimiter is a row delimiter.
-    if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
-      // Since we have reached a new row of data,
-      // add an empty row to our data array.
-      arrData.push([]);
-    }
-    // Now that we have our delimiter out of the way,
-    // let's check to see which kind of value we
-    // captured (quoted or unquoted).
-    if (arrMatches[2]) {
-      // We found a quoted value. When we capture
-      // this value, unescape any double quotes.
-      var strMatchedValue = arrMatches[2].replace(
-        new RegExp("\"\"", "g"), "\"");
-    } else {
-      // We found a non-quoted value.
-      var strMatchedValue = arrMatches[3];
-    }
-    // Now that we have our value string, let's add
-    // it to the data array.
-    arrData[arrData.length - 1].push(strMatchedValue);
-  }
-  // Return the parsed data.
-  return (arrData);
-}
-
-function CSV2JSON(csv) {
-  if(csv==undefined || csv=="")
-    return "";
-  var array = CSVToArray(csv);
-  var objArray = [];
-  for (var i = 1; i < array.length; i++) {
-    objArray[i - 1] = {};
-    for (var k = 0; k < array[0].length && k < array[i].length; k++) {
-      var key = array[0][k];
-      objArray[i - 1][key] = array[i][k]
-    }
-  }
-
-  var json = JSON.stringify(objArray);
-  var str = json.replace(/},/g, "},\r\n");
-
-  return str;
-}
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
