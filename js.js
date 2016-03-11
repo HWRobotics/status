@@ -50,7 +50,7 @@ $(document).ready(function() {
       });
       for (i = 0; i < jd.length; i++) {
         if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
-          if (jd[i].blue.score == -1) {
+          if (jd[i].alliances.blue.score == -1) {
             $('#status').append('<i>Next Match:</i> ');
             $('#status').append(jd[i].comp_level+' ');
             $('#status').append(jd[i].match_number);
@@ -99,30 +99,30 @@ $(document).ready(function() {
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
           if (jd[i].alliances.red.teams[2] == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
           else scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + ", " + b3 + '</td>');
-          scoreshtml += ('<td class="red">' + jd[i].red.score + '</td>');
-          scoreshtml += ('<td class="blue">' + jd[i].blue.score + '</td>');
-          if (jd[i].blue.score == -1)
+          scoreshtml += ('<td class="red">' + jd[i].alliances.red.score + '</td>');
+          scoreshtml += ('<td class="blue">' + jd[i].alliances.blue.score + '</td>');
+          if (jd[i].alliances.blue.score == -1)
             scoreshtml += ('<td>Unplayed</td>');
           else if ((jd[i].alliances.red.teams[0] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[1] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[2] == 'frc'+teamNumber)) {
-            if (parseInt(jd[i].red.score) > highScore) {
-              highScore = parseInt(jd[i].red.score)
+            if (parseInt(jd[i].alliances.red.score) > highScore) {
+              highScore = parseInt(jd[i].alliances.red.score)
             }
-            if (parseInt(jd[i].red.score) < lowScore) {
-              lowScore = parseInt(jd[i].red.score)
+            if (parseInt(jd[i].alliances.red.score) < lowScore) {
+              lowScore = parseInt(jd[i].alliances.red.score)
             }
-            if (parseInt(jd[i].red.score) > parseInt(jd[i].blue.score)) {
+            if (parseInt(jd[i].alliances.red.score) > parseInt(jd[i].alliances.blue.score)) {
               scoreshtml += ('<td class="victory">WIN</td>');
             } else {
               scoreshtml += ('<td class="yellow">LOSS</td>');
             }
           } else {
-            if (parseInt(jd[i].blue.score) > highScore) {
-              highScore = parseInt(jd[i].blue.score)
+            if (parseInt(jd[i].alliances.blue.score) > highScore) {
+              highScore = parseInt(jd[i].alliances.blue.score)
             }
-            if (parseInt(jd[i].blue.score) < lowScore) {
-              lowScore = parseInt(jd[i].blue.score)
+            if (parseInt(jd[i].alliances.blue.score) < lowScore) {
+              lowScore = parseInt(jd[i].alliances.blue.score)
             }
-            if (parseInt(jd[i].blue.score) > parseInt(jd[i].red.score)) {
+            if (parseInt(jd[i].alliances.blue.score) > parseInt(jd[i].alliances.red.score)) {
               scoreshtml += ('<td class="victory">WIN</td>');
             } else {
               scoreshtml += ('<td class="yellow">LOSS</td>');
