@@ -45,9 +45,11 @@ $(document).ready(function() {
     url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches' + appID,
     dataType: 'json',
     success: function(jd) {
+      /*
       jd.sort(function(a, b){
         return a.match_number - b.match_number;
       });
+      */
       console.log("test");
       console.log(jd);
       $('#status').append(jd[0].red);
