@@ -184,7 +184,7 @@ $(document).ready(function() {
         scoreshtml += '<th>'+jd[0][i]+'</th>';
       }
       scoreshtml += '</tr>';
-      for (i = 1; i < jd.length; i++) {
+      for (i = 1; i < jd.length-1; i++) {
         scoreshtml += '<tr>';
         if (jd[i][1] == teamNumber) {
           for (j = 0; j < jd[0].length; i++) {
