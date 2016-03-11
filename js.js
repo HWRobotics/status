@@ -76,7 +76,7 @@ $(document).ready(function() {
       for (i = 0; i < jd.length - 1; i++) {
         if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
           scoreshtml += ('<tr>');
-          scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
+          scoreshtml += ('<td>'+jd[i].comp_level+' '+jd[i].match_number + '</td>');
           r1 = jd[i].alliances.red.teams[0].substring(3);
           r2 = jd[i].alliances.red.teams[1].substring(3);
           r3 = jd[i].alliances.red.teams[2].substring(3);
