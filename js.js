@@ -29,12 +29,12 @@ $(document).ready(function() {
     success: function(jd) {
       if (jd.length == 0) {
       } else {
-        for(i = 0; i < jd.length; i++) {
-          if(new Date(jd[i].end_date)>new Date(Date.now()) && new Date(jd[i].start_date)<new Date(Date.now()))
-            $('#status').append('<p>' + jd[i].name + '</p>');
-            mySKU = jd[i].key;
-            $('#sku').append(mySKU + ': <a href=http://www.robotevents.com/' + mySKU + '.html>RobotEvents</a>, <a href=http://vex.us.nallen.me/events/view/' + mySKU + '>VexDB</a>');
-
+        jd.sort(function(a, b){
+          return a.end_date - b.end_date;
+        });
+        $('#status').append('<p>' + jd[0].name + '</p>');
+        mySKU = jd[0].key;
+        $('#sku').append(mySKU + ': <a href=http://www.thebluealliance.com/event/' + mySKU+'>TBA</a>, <a href=http://frc-events.firstinspires.org/' + mySKU.substring(0,4) + '/' + mySKU.substring(4) + '>First</a>');
         }
         $('#status').append('<p>No Ongoing Tournament/Tournament Ended - Displaying Previous Results</p>');
       }
