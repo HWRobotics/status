@@ -97,7 +97,7 @@ $(document).ready(function() {
             scoreshtml += ('<td class="red"> - </td>');
           else
             scoreshtml += ('<td class="red">' + jd[i].alliances.red.score + '</td>')
-          if(jd[i].alliances.blue.score == -1);
+          if(jd[i].alliances.blue.score == -1)
             scoreshtml += ('<td class="blue"> - </td>');
           else
             scoreshtml += ('<td class="blue">' + jd[i].alliances.blue.score + '</td>');
