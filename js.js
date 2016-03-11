@@ -77,17 +77,17 @@ $(document).ready(function() {
           b1 = jd[i].alliances.blue.teams[0].substring(3);
           b2 = jd[i].alliances.blue.teams[1].substring(3);
           b3 = jd[i].alliances.blue.teams[2].substring(3);
-          if (r1 == 'frc'+teamNumber)
+          if (r1 == teamNumber)
             r1 = '<b style="font-weight:bolder;">' + r1 + '</b>';
-          if (r2 == 'frc'+teamNumber)
+          if (r2 == teamNumber)
             r2 = '<b style="font-weight:bolder;">' + r2 + '</b>';
-          if (r3 == 'frc'+teamNumber)
+          if (r3 == teamNumber)
             r3 = '<b style="font-weight:bolder;">' + r3 + '</b>';
-          if (b1 == 'frc'+teamNumber)
+          if (b1 == teamNumber)
             b1 = '<b style="font-weight:bolder;">' + b1 + '</b>';
-          if (b2 == 'frc'+teamNumber)
+          if (b2 == teamNumber)
             b2 = '<b style="font-weight:bolder;">' + b2 + '</b>';
-          if (b3 == 'frc'+teamNumber)
+          if (b3 == teamNumber)
             b3 = '<b style="font-weight:bolder;">' + b3 + '</b>';
           if (jd[i].alliances.red.teams[2] == undefined) scoreshtml += ('<td class="red">' + r1 + ", " + r2 + '</td>');
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
