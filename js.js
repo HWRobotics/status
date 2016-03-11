@@ -41,7 +41,6 @@ $(document).ready(function() {
     },
     async: false,
   });
-console.log("test");
   $.ajax({
     url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches' + appID,
     dataType: 'json',
@@ -49,6 +48,8 @@ console.log("test");
       jd.sort(function(a, b){
         return a.match_number - b.match_number;
       });
+      console.log("test");
+      console.log(jd);
       $('#status').append(jd[0].red);
       for (i = 0; i < jd.length; i++) {
         if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
