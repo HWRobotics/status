@@ -179,21 +179,23 @@ $(document).ready(function() {
     url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/rankings' + appID,
     dataType: 'json',
     success: function(jd) {
-      scoreshtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>W-L-T</th><th>Ranking Points</th><th>Played</th></tr>';
-      for (i = 1; i < jd.length - 1; i++) {
+      scoreshtml = '<table style="width:100%" border="1"><tr>';
+      for (i = 0; i < jd[0].length; i++) {
+        scoreshtml += '<th>'+jd[0][i]+'</th>';
+      }
+      scoreshtml += '</tr>';
+      for (i = 1; i < jd.length; i++) {
+        scoreshtml += '<tr>';
         if (jd[i][1] == teamNumber) {
-          scoreshtml += ('<td class=yellow><b>' + jd[i][0] + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i][1] + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i][7] + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i][2] + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i][8] + '</b></td></tr>');
+          for (j = 0; j < jd[0].length; i++) {
+            scoreshtml += '<td class=yellow><b>'+jd[i][j]+'</b></td>';
+          }
         } else {
-          scoreshtml += ('<td>' + jd[i][0] + '</td>');
-          scoreshtml += ('<td>' + jd[i][1] + '</td>');
-          scoreshtml += ('<td>' + jd[i][7] + '</td>');
-          scoreshtml += ('<td>' + jd[i][2] + '</td>');
-          scoreshtml += ('<td>' + jd[i][8] + '</td></tr>');
+          for (j = 0; j < jd[0].length; i++) {
+            scoreshtml += '<td>'+jd[i][j]+'</td>';
+          }
         }
+        scores += '</tr>';
       }
       scoreshtml += '</table>';
       $('#rankings').append(scoreshtml);
