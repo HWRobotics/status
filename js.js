@@ -35,8 +35,6 @@ $(document).ready(function() {
         $('#status').append('<p>' + jd[0].name + '</p>');
         mySKU = jd[0].key;
         $('#sku').append(mySKU + ': <a href=http://www.thebluealliance.com/event/' + mySKU+'>TBA</a>, <a href=http://frc-events.firstinspires.org/' + mySKU.substring(0,4) + '/' + mySKU.substring(4) + '>First</a>');
-        }
-        $('#status').append('<p>No Ongoing Tournament/Tournament Ended - Displaying Previous Results</p>');
       }
     },
     async: false,
