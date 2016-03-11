@@ -28,7 +28,7 @@ $(document).ready(function() {
     success: function(jd) {
       if (jd.length == 0) {
       } else {
-        for(int i = 0; i < jd.length; i++) {
+        for(i = 0; i < jd.length; i++) {
           if(new Date(jd[i].end_date)>new Date(Date.now()) && new Date(jd[i].start_date)<new Date(Date.now()))
             $('#status').append('<p>' + jd[i].name + '</p>');
             mySKU = jd[i].key;
