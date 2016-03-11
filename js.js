@@ -59,7 +59,7 @@ $(document).ready(function() {
             }
             $('#status').append('<br><div style="color:red;">' + jd[i].alliances.red.teams[0].substring(3) + ", " + jd[i].alliances.red.teams[1].substring(3));
             if (jd[i].alliances.red.teams[2] != "")
-              $('#status').append(", " + jd.alliances.red.teams[2].substring(3));
+              $('#status').append(", " + jd[i].alliances.red.teams[2].substring(3));
             $('#status').append('</div><div style="color:blue;">' + jd[i].alliances.blue.teams[0].substring(3) + ", " + jd[i].alliances.blue.teams[1].substring(3));
             if (jd[i].alliances.blue.teams[2] != "")
               $('#status').append(", " + jd[i].alliances.blue.teams[2].substring(3));
