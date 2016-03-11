@@ -74,7 +74,7 @@ $(document).ready(function() {
       var highScore = 0;
       var lowScore = 5000;
       for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].red.teams == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber) {
+        if (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber) {
           scoreshtml += ('<tr>');
           scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
           r1 = jd[i].alliances.red.teams[0];
