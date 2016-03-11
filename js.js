@@ -144,7 +144,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(jd) {
       if (jd.length < 3) {} else {
-        for (i = 0; i < 3; i++) {
+        for (i = 1; i < 3; i++) {
           $('#' + (i + 1)).append('<td>' + jd[i][0] + '</td>');
           $('#' + (i + 1)).append('<td>' + jd[i][1] + '</td>');
           $('#' + (i + 1)).append('<td>' + jd[i][7] + '</td>');
@@ -160,7 +160,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(jd) {
       if (jd.length == 0) {} else {
-        for (i = 0; i < jd.length; i++) {
+        for (i = 1; i < jd.length; i++) {
           if (jd[i].teamnum == teamNumber) {
             $('#us').append('<td><b>' + jd[i][0] + '</b></td>');
             $('#us').append('<td><b>' + jd[i][1] + '</b></td>');
@@ -180,7 +180,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(jd) {
       scoreshtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>W-L-T</th><th>Ranking Points</th><th>Played</th></tr>';
-      for (i = 0; i < jd.length - 1; i++) {
+      for (i = 1; i < jd.length - 1; i++) {
         if (jd[i].teamnum == teamNumber) {
           scoreshtml += ('<td class=yellow><b>' + jd[i][0] + '</b></td>');
           scoreshtml += ('<td class=yellow><b>' + jd[i][1] + '</b></td>');
