@@ -76,7 +76,7 @@ $(document).ready(function() {
       for (i = 0; i < jd.length - 1; i++) {
         if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
           scoreshtml += ('<tr>');
-          scoreshtml += ('<td>'jd.comp_level+' '+jd[i].matchNumber + '</td>');
+          scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
           r1 = jd[i].red.teams[0];
           r2 = jd[i].red.teams[1];
           r3 = jd[i].red.teams[2];
