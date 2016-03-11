@@ -184,7 +184,7 @@ $(document).ready(function() {
         if (jd[i].teamnum == teamNumber) {
           scoreshtml += ('<td class=yellow><b>' + jd[i][0] + '</b></td>');
           scoreshtml += ('<td class=yellow><b>' + jd[i][1] + '</b></td>');
-          scoreshtml += ('<td class=yellow><b>' + jd[i][7]'</b></td>');
+          scoreshtml += ('<td class=yellow><b>' + jd[i][7] + '</b></td>');
           scoreshtml += ('<td class=yellow><b>' + jd[i][2] + '</b></td>');
           scoreshtml += ('<td class=yellow><b>' + jd[i][8] + '</b></td></tr>');
         } else {
