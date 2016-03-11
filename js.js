@@ -24,7 +24,7 @@ $(document).ready(function() {
   });
   //Sets SKU of tournament to any current tournament, if we're not in one, display the last tournament
   $.ajax({
-    url: 'http://www.thebluealliance.com/api/v2/team/' + teamNumber + '/events' + appID,
+    url: 'http://www.thebluealliance.com/api/v2/team/frc' + teamNumber + '/events' + appID,
     dataType: 'json',
     success: function(jd) {
       if (jd.length == 0) {
