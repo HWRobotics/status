@@ -49,7 +49,7 @@ $(document).ready(function() {
       jd.sort(function(a, b){
         return a.match_number - b.match_number;
       });
-      $('#status.append'(jd[0].red));
+      $('#status').append(jd[0].red));
       for (i = 0; i < jd.length; i++) {
         if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
           if (jd[i].blue.score == -1) {
