@@ -77,12 +77,12 @@ $(document).ready(function() {
         if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
           scoreshtml += ('<tr>');
           scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
-          r1 = jd[i].alliances.red.teams[0];
-          r2 = jd[i].alliances.red.teams[1];
-          r3 = jd[i].alliances.red.teams[2];
-          b1 = jd[i].alliances.red.teams[0];
-          b2 = jd[i].alliances.red.teams[1];
-          b3 = jd[i].alliances.red.teams[2];
+          r1 = jd[i].alliances.red.teams[0].substring(3);
+          r2 = jd[i].alliances.red.teams[1].substring(3);
+          r3 = jd[i].alliances.red.teams[2].substring(3);
+          b1 = jd[i].alliances.red.teams[0].substring(3);
+          b2 = jd[i].alliances.red.teams[1].substring(3);
+          b3 = jd[i].alliances.red.teams[2].substring(3);
           if (r1 == 'frc'+teamNumber)
             r1 = '<b style="font-weight:bolder;">' + r1 + '</b>';
           if (r2 == 'frc'+teamNumber)
