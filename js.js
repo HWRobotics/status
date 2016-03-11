@@ -4,6 +4,7 @@ $(document).ready(function() {
   var competingCurrently = true;
   var skillsCompetition = false;
   var accessRobotEvents = false;
+  var appID = "?X-TBA-App-Id=1148:statuspage:0.1"
 
   if (teamNumber == undefined)
     teamNumber = "1148"
@@ -14,7 +15,7 @@ $(document).ready(function() {
 
   //For title, gets team name
   $.ajax({
-    url: 'http://www.thebluealliance.com/api/v2/team/frc' + teamNumber,
+    url: 'http://www.thebluealliance.com/api/v2/team/frc' + teamNumber + appID,
     dataType: 'json',
     success: function(jd) {
       $('#title').append('<p>Team ' + teamNumber + ', ' + jd.name + '</p>');
@@ -23,7 +24,7 @@ $(document).ready(function() {
   });
   //Sets SKU of tournament to any current tournament, if we're not in one, display the last tournament
   $.ajax({
-    url: 'http://www.thebluealliance.com/api/v2/team/' + teamNumber + '/events',
+    url: 'http://www.thebluealliance.com/api/v2/team/' + teamNumber + '/events' + appID,
     dataType: 'json',
     success: function(jd) {
       if (jd.length == 0) {
@@ -42,7 +43,7 @@ $(document).ready(function() {
   });
 
   $.ajax({
-    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches',
+    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches' + appID,
     dataType: 'json',
     success: function(jd) {
       jd.sort(function(a, b){
