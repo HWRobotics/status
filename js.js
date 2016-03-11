@@ -200,6 +200,7 @@ $(document).ready(function() {
     },
     async: false,
   });
+});
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
