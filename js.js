@@ -145,11 +145,11 @@ $(document).ready(function() {
     success: function(jd) {
       if (jd.length < 3) {} else {
         for (i = 1; i < 4; i++) {
-          $('#' + (i + 1)).append('<td>' + jd[i][0] + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i][1] + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i][7] + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i][2] + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i][8] + '</td>');
+          $('#' + (i)).append('<td>' + jd[i][0] + '</td>');
+          $('#' + (i)).append('<td>' + jd[i][1] + '</td>');
+          $('#' + (i)).append('<td>' + jd[i][7] + '</td>');
+          $('#' + (i)).append('<td>' + jd[i][2] + '</td>');
+          $('#' + (i)).append('<td>' + jd[i][8] + '</td>');
         }
       }
     },
