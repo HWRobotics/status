@@ -80,9 +80,9 @@ $(document).ready(function() {
           r1 = jd[i].alliances.red.teams[0].substring(3);
           r2 = jd[i].alliances.red.teams[1].substring(3);
           r3 = jd[i].alliances.red.teams[2].substring(3);
-          b1 = jd[i].alliances.red.teams[0].substring(3);
-          b2 = jd[i].alliances.red.teams[1].substring(3);
-          b3 = jd[i].alliances.red.teams[2].substring(3);
+          b1 = jd[i].alliances.blue.teams[0].substring(3);
+          b2 = jd[i].alliances.blue.teams[1].substring(3);
+          b3 = jd[i].alliances.blue.teams[2].substring(3);
           if (r1 == 'frc'+teamNumber)
             r1 = '<b style="font-weight:bolder;">' + r1 + '</b>';
           if (r2 == 'frc'+teamNumber)
@@ -97,7 +97,7 @@ $(document).ready(function() {
             b3 = '<b style="font-weight:bolder;">' + b3 + '</b>';
           if (jd[i].alliances.red.teams[2] == undefined) scoreshtml += ('<td class="red">' + r1 + ", " + r2 + '</td>');
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
-          if (jd[i].alliances.red.teams[2] == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
+          if (jd[i].alliances.blue.teams[2] == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
           else scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + ", " + b3 + '</td>');
           scoreshtml += ('<td class="red">' + jd[i].alliances.red.score + '</td>');
           scoreshtml += ('<td class="blue">' + jd[i].alliances.blue.score + '</td>');
