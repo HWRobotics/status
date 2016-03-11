@@ -200,6 +200,32 @@ $(document).ready(function() {
     },
     async: false,
   });
+  $.ajax({
+    url: ('http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches' + appID),
+    dataType: 'json',
+    success: function(jd) {
+      jd.sort(function(a, b){
+        return a.match_number - b.match_number;
+      });
+      currentMatchNumber = 0;
+      differience = 0;
+      for (i = 0; i < jd.length; i++) {
+        if (jd[i].alliances.red.score == -1) {
+          currentMatchNumber = jd[i].match_number;
+          $('#currentmatch').append('Current Match Number: ' + jd[i].matchnum);
+          break;
+        }
+      }
+      for(i = 0; i < jd.length; i++) {
+        if(jd[i].alliances.red.score == -1 && (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.blue.teams[0] == teamNumber || jd[i].alliances.blue.teams[1] == teamNumber || jd[i].alliances.blue.teams[2] == teamNumber)) {
+          differience = jd[i].match_number - currentMatchNumber;
+          $('#currentmatch').append(', Our Next Match: ' + jd[i].match_number + ', Up in <b>' + differience + '</b> matches');
+          break;
+        }
+      }
+    },
+    async: false,
+  });
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
