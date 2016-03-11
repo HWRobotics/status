@@ -49,7 +49,7 @@ $(document).ready(function() {
         return a.match_number - b.match_number;
       });
       for (i = 0; i < jd.length; i++) {
-        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
+        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.blue.teams[0] == 'frc'+teamNumber || jd[i].alliances.blue.teams[1] == 'frc'+teamNumber || jd[i].alliances.blue.teams[2] == 'frc'+teamNumber) {
           if (jd[i].alliances.blue.score == -1) {
             $('#status').append('<i>Next Match:</i> ');
             $('#status').append(jd[i].comp_level+' ');
@@ -62,9 +62,9 @@ $(document).ready(function() {
             $('#status').append('<br><div style="color:red;">' + jd[i].alliances.red.teams[0] + ", " + jd[i].alliances.red.teams[1]);
             if (jd[i].alliances.red.teams[2] != "")
               $('#status').append(", " + jd.result[i].alliances.red.teams[2]);
-            $('#status').append('</div><div style="color:blue;">' + jd[i].alliances.red.teams[0] + ", " + jd[i].alliances.red.teams[1]);
-            if (jd[i].alliances.red.teams[2] != "")
-              $('#status').append(", " + jd[i].alliances.red.teams[2]);
+            $('#status').append('</div><div style="color:blue;">' + jd[i].alliances.blue.teams[0] + ", " + jd[i].alliances.blue.teams[1]);
+            if (jd[i].alliances.blue.teams[2] != "")
+              $('#status').append(", " + jd[i].alliances.blue.teams[2]);
             $('#status').append('</div><hr>');
             break;
           }
@@ -74,7 +74,7 @@ $(document).ready(function() {
       var highScore = 0;
       var lowScore = 5000;
       for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
+        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.blue.teams[0] == 'frc'+teamNumber || jd[i].alliances.blue.teams[1] == 'frc'+teamNumber || jd[i].alliances.blue.teams[2] == 'frc'+teamNumber) {
           scoreshtml += ('<tr>');
           scoreshtml += ('<td>'+jd[i].comp_level+' '+jd[i].match_number + '</td>');
           r1 = jd[i].alliances.red.teams[0].substring(3);
