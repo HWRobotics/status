@@ -147,7 +147,7 @@ $(document).ready(function() {
         for (i = 0; i < 3; i++) {
           $('#' + (i + 1)).append('<td>' + jd[i][0] + '</td>');
           $('#' + (i + 1)).append('<td>' + jd[i][1] + '</td>');
-          $('#' + (i + 1)).append('<td>' + jd[i][7] + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
+          $('#' + (i + 1)).append('<td>' + jd[i][7] + '</td>');
           $('#' + (i + 1)).append('<td>' + jd[i][2] + '</td>');
           $('#' + (i + 1)).append('<td>' + jd[i][8] + '</td>');
         }
@@ -190,7 +190,7 @@ $(document).ready(function() {
         } else {
           scoreshtml += ('<td>' + jd[i][0] + '</td>');
           scoreshtml += ('<td>' + jd[i][1] + '</td>');
-          scoreshtml += ('<td>' + jd[i][7] + '-' + jd[i].losses + '-' + jd[i].ties + '</td>');
+          scoreshtml += ('<td>' + jd[i][7] + '</td>');
           scoreshtml += ('<td>' + jd[i][2] + '</td>');
           scoreshtml += ('<td>' + jd[i][8] + '</td></tr>');
         }
