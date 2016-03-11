@@ -219,7 +219,10 @@ $(document).ready(function() {
       for(i = 0; i < jd.length; i++) {
         if(jd[i].alliances.red.score == -1 && (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.blue.teams[0] == 'frc'+teamNumber || jd[i].alliances.blue.teams[1] == 'frc'+teamNumber || jd[i].alliances.blue.teams[2] == 'frc'+teamNumber)) {
           differience = jd[i].match_number - currentMatchNumber;
-          $('#currentmatch').append(', Our Next Match: ' + jd[i].match_number + ', Up in <b>' + differience + '</b> matches');
+          if(differience == 0)
+            $('#currentmatch').append('<b>Playing Now</b>');
+          else
+            $('#currentmatch').append(', Our Next Match: ' + jd[i].match_number + ', Up in <b>' + differience + '</b> matches');
           break;
         }
       }
