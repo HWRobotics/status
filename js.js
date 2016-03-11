@@ -187,11 +187,11 @@ $(document).ready(function() {
       for (i = 1; i < jd.length-1; i++) {
         scoreshtml += '<tr>';
         if (jd[i][1] == teamNumber) {
-          for (j = 0; j < jd[0].length; i++) {
+          for (j = 0; j < 9; i++) {
             scoreshtml += '<td class=yellow><b>'+jd[i][j]+'</b></td>';
           }
         } else {
-          for (j = 0; j < jd[0].length; i++) {
+          for (j = 0; j < 9; i++) {
             scoreshtml += '<td>'+jd[i][j]+'</td>';
           }
         }
