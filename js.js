@@ -209,7 +209,7 @@ $(document).ready(function() {
       });
       currentMatchNumber = 0;
       differience = 0;
-      for (i = jd.length-1; i >= 0; i++) {
+      for (i = jd.length-1; i >= 0; i--) {
         if (jd[i].alliances.red.score != -1) {
           currentMatchNumber = jd[i+1].match_number;
           $('#currentmatch').append('Current Match Number: ' + jd[i+1].match_number);
