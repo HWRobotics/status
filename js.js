@@ -6,86 +6,65 @@ $(document).ready(function() {
   var accessRobotEvents = false;
 
   if (teamNumber == undefined)
-    teamNumber = "62"
+    teamNumber = "1148"
 
-  $('#indexLinks').append('<a href=rankings.html?team=' + teamNumber + '>Rankings</a> <a href=skills.html?team=' + teamNumber + '>Skills</a>');
-  $('#skillsLinks').append('<a href=index.html?team=' + teamNumber + '>Main Page</a> <a href=rankings.html?team=' + teamNumber + '>Rankings</a>');
-  $('#rankingsLinks').append('<a href=index.html?team=' + teamNumber + '>Main Page</a> <a href=skills.html?team=' + teamNumber + '>Skills</a>');
+  $('#indexLinks').append('<a href=rankings.html?team=' + teamNumber + '>Rankings</a>');
+  $('#rankingsLinks').append('<a href=index.html?team=' + teamNumber + '>Main Page</a>');
 
 
   //For title, gets team name
   $.ajax({
-    url: 'http://api.vexdb.io/v1/get_teams?team=' + teamNumber,
+    url: 'http://www.thebluealliance.com/api/v2/team/frc' + teamNumber,
     dataType: 'json',
     success: function(jd) {
-      $('#title').append('<p>Team ' + teamNumber + ', ' + jd.result[0].team_name + '</p>');
+      $('#title').append('<p>Team ' + teamNumber + ', ' + jd.name + '</p>');
     },
     async: false,
   });
   //Sets SKU of tournament to any current tournament, if we're not in one, display the last tournament
   $.ajax({
-    url: 'http://api.vexdb.io/v1/get_events?team=' + teamNumber + '&status=current',
+    url: 'http://www.thebluealliance.com/api/v2/team/' + teamNumber + '/events',
     dataType: 'json',
     success: function(jd) {
-      if (jd.size == 0) {
-        $('#status').append('<p>No Ongoing Tournament/Tournament Ended - Displaying Previous Results</p>');
-        competingCurrently = false;
+      if (jd.length == 0) {
       } else {
-        $('#status').append('<p>' + jd.result[0].name + '</p>');
-        mySKU = jd.result[0].sku;
-        $('#sku').append(mySKU + ': <a href=http://www.robotevents.com/' + mySKU + '.html>RobotEvents</a>, <a href=http://vex.us.nallen.me/events/view/' + mySKU + '>VexDB</a>');
+        for(int i = 0; i < jd.length; i++) {
+          if(new Date(jd[i].end_date)>new Date(Date.now()) && new Date(jd[i].start_date)<new Date(Date.now()))
+            $('#status').append('<p>' + jd[i].name + '</p>');
+            mySKU = jd[i].key;
+            $('#sku').append(mySKU + ': <a href=http://www.robotevents.com/' + mySKU + '.html>RobotEvents</a>, <a href=http://vex.us.nallen.me/events/view/' + mySKU + '>VexDB</a>');
+
+        }
+        $('#status').append('<p>No Ongoing Tournament/Tournament Ended - Displaying Previous Results</p>');
       }
     },
     async: false,
   });
-  if (!competingCurrently) {
-    $.ajax({
-      url: 'http://api.vexdb.io/v1/get_events?team=' + teamNumber + '&status=past',
-      dataType: 'json',
-      success: function(jd) {
-        $('#status').append('<p>' + jd.result[0].name + '</p>');
-        if ((jd.result[0].name).indexOf("Skills") > 0) {
-          skillsCompetition = true;
-        }
-        mySKU = jd.result[0].sku;
-        $('#sku').append('<br>' + mySKU + ': <a href=http://www.robotevents.com/' + mySKU + '.html>RobotEvents</a>, <a href=http://vex.us.nallen.me/events/view/' + mySKU + '>VexDB</a>');
-      },
-      async: false,
-      timeout: 5000,
-    });
-  }
-  //Handle matches from RobotEvents
+
   $.ajax({
-    url: 'http://ajax.robotevents.com/tm/results/matches/?format=csv&sku=' + mySKU + '&div=1',
-    dataType: 'text',
-    success: function(input) {
-      var jd = jQuery.parseJSON(CSV2JSON(input));
+    url: 'http://www.thebluealliance.com/api/v2/event/' + mySKU + '/matches',
+    dataType: 'json',
+    success: function(jd) {
+      jd.sort(function(a, b){
+        return a.match_number - b.match_number;
+      });
       for (i = 0; i < jd.length; i++) {
-        if (jd[i].red1 == teamNumber || jd[i].red2 == teamNumber || jd[i].red3 == teamNumber || jd[i].blue1 == teamNumber || jd[i].blue2 == teamNumber || jd[i].blue3 == teamNumber) {
-          if (jd[i].scored == 0) {
+        if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
+          if (jd[i].blue.score == -1) {
             $('#status').append('<i>Next Match:</i> ');
-            if (jd[i].round == 2) {
-              $('#status').append('QM ');
-            } else if (jd[i].round == 3) {
-              $('#status').append('QF ');
-            } else if (jd[i].round == 4) {
-              $('#status').append('SF ');
-            } else if (jd[i].round == 5) {
-              $('#status').append('F ');
-            }
-            $('#status').append(jd[i].matchnum);
-            if (jd[i].red1 == teamNumber || jd[i].red2 == teamNumber || jd[i].red3 == teamNumber) {
+            $('#status').append(jd[i].comp_level+' ');
+            $('#status').append(jd[i].match_number);
+            if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber) {
               $('#status').append(", Red");
             } else {
               $('#status').append(", Blue");
             }
-            $('#status').append(', ' + jd[i].field);
-            $('#status').append('<br><div style="color:red;">' + jd[i].red1 + ", " + jd[i].red2);
-            if (jd[i].red3 != "")
-              $('#status').append(", " + jd.result[i].red3);
-            $('#status').append('</div><div style="color:blue;">' + jd[i].blue1 + ", " + jd[i].blue2);
-            if (jd[i].blue3 != "")
-              $('#status').append(", " + jd[i].blue3);
+            $('#status').append('<br><div style="color:red;">' + jd[i].red.teams[0] + ", " + jd[i].red.teams[1]);
+            if (jd[i].red.teams[2] != "")
+              $('#status').append(", " + jd.result[i].red.teams[2]);
+            $('#status').append('</div><div style="color:blue;">' + jd[i].blue.teams[0] + ", " + jd[i].blue.teams[1]);
+            if (jd[i].blue.teams[2] != "")
+              $('#status').append(", " + jd[i].blue.teams[2]);
             $('#status').append('</div><hr>');
             break;
           }
@@ -95,25 +74,15 @@ $(document).ready(function() {
       var highScore = 0;
       var lowScore = 5000;
       for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].red1 == teamNumber || jd[i].red2 == teamNumber || jd[i].red3 == teamNumber || jd[i].blue1 == teamNumber || jd[i].blue2 == teamNumber || jd[i].blue3 == teamNumber) {
+        if (jd[i].red.teams[0] == teamNumber || jd[i].red.teams[1] == teamNumber || jd[i].red.teams[2] == teamNumber || jd[i].blue.teams[0] == teamNumber || jd[i].blue.teams[1] == teamNumber || jd[i].blue.teams[2] == teamNumber) {
           scoreshtml += ('<tr>');
-          scoreshtml += ('<td>');
-          if (jd[i].round == 2) {
-            scoreshtml += ('QM ');
-          } else if (jd[i].round == 3) {
-            scoreshtml += ('QF ');
-          } else if (jd[i].round == 4) {
-            scoreshtml += ('SF ');
-          } else if (jd[i].round == 5) {
-            scoreshtml += ('F ');
-          }
-          scoreshtml += (jd[i].matchnum + '</td>');
-          r1 = jd[i].red1;
-          r2 = jd[i].red2;
-          r3 = jd[i].red3;
-          b1 = jd[i].blue1;
-          b2 = jd[i].blue2;
-          b3 = jd[i].blue3;
+          scoreshtml += ('<td>'jd.comp_level+' '+jd[i].matchNumber + '</td>');
+          r1 = jd[i].red.teams[0];
+          r2 = jd[i].red.teams[1];
+          r3 = jd[i].red.teams[2];
+          b1 = jd[i].blue.teams[0];
+          b2 = jd[i].blue.teams[1];
+          b3 = jd[i].blue.teams[2];
           if (r1 == teamNumber)
             r1 = '<b style="font-weight:bolder;">' + r1 + '</b>';
           if (r2 == teamNumber)
@@ -126,34 +95,34 @@ $(document).ready(function() {
             b2 = '<b style="font-weight:bolder;">' + b2 + '</b>';
           if (b3 == teamNumber)
             b3 = '<b style="font-weight:bolder;">' + b3 + '</b>';
-          if (jd[i].red3 == undefined) scoreshtml += ('<td class="red">' + r1 + ", " + r2 + '</td>');
+          if (jd[i].red.teams[2] == undefined) scoreshtml += ('<td class="red">' + r1 + ", " + r2 + '</td>');
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
-          if (jd[i].blue3 == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
+          if (jd[i].blue.teams[2] == undefined) scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + '</td>');
           else scoreshtml += ('<td class="blue">' + b1 + ", " + b2 + ", " + b3 + '</td>');
-          scoreshtml += ('<td class="red">' + jd[i].redscore + '</td>');
-          scoreshtml += ('<td class="blue">' + jd[i].bluescore + '</td>');
-          if (jd[i].scored == 0)
+          scoreshtml += ('<td class="red">' + jd[i].red.score + '</td>');
+          scoreshtml += ('<td class="blue">' + jd[i].blue.score + '</td>');
+          if (jd[i].blue.score == -1)
             scoreshtml += ('<td>Unplayed</td>');
-          else if ((jd[i].red1 == teamNumber) || (jd[i].red2 == teamNumber) || (jd[i].red3 == teamNumber)) {
-            if (parseInt(jd[i].redscore) > highScore) {
-              highScore = parseInt(jd[i].redscore)
+          else if ((jd[i].red.teams[0] == teamNumber) || (jd[i].red.teams[1] == teamNumber) || (jd[i].red.teams[2] == teamNumber)) {
+            if (parseInt(jd[i].red.score) > highScore) {
+              highScore = parseInt(jd[i].red.score)
             }
-            if (parseInt(jd[i].redscore) < lowScore) {
-              lowScore = parseInt(jd[i].redscore)
+            if (parseInt(jd[i].red.score) < lowScore) {
+              lowScore = parseInt(jd[i].red.score)
             }
-            if (parseInt(jd[i].redscore) > parseInt(jd[i].bluescore)) {
+            if (parseInt(jd[i].red.score) > parseInt(jd[i].blue.score)) {
               scoreshtml += ('<td class="victory">WIN</td>');
             } else {
               scoreshtml += ('<td class="yellow">LOSS</td>');
             }
           } else {
-            if (parseInt(jd[i].bluescore) > highScore) {
-              highScore = parseInt(jd[i].bluescore)
+            if (parseInt(jd[i].blue.score) > highScore) {
+              highScore = parseInt(jd[i].blue.score)
             }
-            if (parseInt(jd[i].bluescore) < lowScore) {
-              lowScore = parseInt(jd[i].bluescore)
+            if (parseInt(jd[i].blue.score) < lowScore) {
+              lowScore = parseInt(jd[i].blue.score)
             }
-            if (parseInt(jd[i].bluescore) > parseInt(jd[i].redscore)) {
+            if (parseInt(jd[i].blue.score) > parseInt(jd[i].red.score)) {
               scoreshtml += ('<td class="victory">WIN</td>');
             } else {
               scoreshtml += ('<td class="yellow">LOSS</td>');
@@ -172,7 +141,7 @@ $(document).ready(function() {
   //Handle rankings from robotevents
   $.ajax({
     url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
-    dataType: 'text',
+    dataType: 'json',
     success: function(input) {
       var jd = jQuery.parseJSON(CSV2JSON(input));
       if (jd.length < 3) {} else {
@@ -189,7 +158,7 @@ $(document).ready(function() {
   });
   $.ajax({
     url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
-    dataType: 'text',
+    dataType: 'json',
     success: function(input) {
       var jd = jQuery.parseJSON(CSV2JSON(input));
       if (jd.length == 0) {} else {
@@ -210,7 +179,7 @@ $(document).ready(function() {
   //Handle rankings - from robotevents
   $.ajax({
     url: 'http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1',
-    dataType: 'text',
+    dataType: 'json',
     success: function(input) {
       scoreshtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>W-L-T</th><th>WP</th><th>SP</th></tr>';
       var jd = jQuery.parseJSON(CSV2JSON(input));
@@ -237,7 +206,7 @@ $(document).ready(function() {
   //handle robot skills - from RobotEvents
   $.ajax({
     url: 'http://ajax.robotevents.com/tm/results/skills_robot/?format=csv&sku=' + mySKU + '&div=',
-    dataType: 'text',
+    dataType: 'json',
     success: function(input) {
       var jd = jQuery.parseJSON(CSV2JSON(input));
       roboSkillsHtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>Score</th><th>Attempts</th></tr>';
@@ -263,7 +232,7 @@ $(document).ready(function() {
   //handle programming sills - from robotevents
   $.ajax({
     url: 'http://ajax.robotevents.com/tm/results/skills_programming/?format=csv&sku=' + mySKU + '&div=',
-    dataType: 'text',
+    dataType: 'json',
     success: function(input) {
       var jd = jQuery.parseJSON(CSV2JSON(input));
       roboSkillsHtml = '<table style="width:100%" border="1"><tr><th>Rank</th><th>Team #</th><th>Score</th><th>Attempts</th></tr>';
@@ -307,7 +276,7 @@ $(document).ready(function() {
   if (!skillsCompetition) {
     $.ajax({
       url: ('http://ajax.robotevents.com/tm/results/rankings/?format=csv&sku=' + mySKU + '&div=1'),
-      dataType: 'text',
+      dataType: 'json',
       success: function(input) {
         var jd = jQuery.parseJSON(CSV2JSON(input));
         currentMatchNumber = 0;
