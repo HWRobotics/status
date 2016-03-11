@@ -49,12 +49,12 @@ $(document).ready(function() {
         return a.match_number - b.match_number;
       });
       for (i = 0; i < jd.length; i++) {
-        if (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber) {
+        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
           if (jd[i].blue.score == -1) {
             $('#status').append('<i>Next Match:</i> ');
             $('#status').append(jd[i].comp_level+' ');
             $('#status').append(jd[i].match_number);
-            if (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber) {
+            if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
               $('#status').append(", Red");
             } else {
               $('#status').append(", Blue");
@@ -74,7 +74,7 @@ $(document).ready(function() {
       var highScore = 0;
       var lowScore = 5000;
       for (i = 0; i < jd.length - 1; i++) {
-        if (jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber || jd[i].alliances.red.teams[0] == teamNumber || jd[i].alliances.red.teams[1] == teamNumber || jd[i].alliances.red.teams[2] == teamNumber) {
+        if (jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber || jd[i].alliances.red.teams[0] == 'frc'+teamNumber || jd[i].alliances.red.teams[1] == 'frc'+teamNumber || jd[i].alliances.red.teams[2] == 'frc'+teamNumber) {
           scoreshtml += ('<tr>');
           scoreshtml += ('<td>'+jd.comp_level+' '+jd[i].matchNumber + '</td>');
           r1 = jd[i].alliances.red.teams[0];
@@ -83,17 +83,17 @@ $(document).ready(function() {
           b1 = jd[i].alliances.red.teams[0];
           b2 = jd[i].alliances.red.teams[1];
           b3 = jd[i].alliances.red.teams[2];
-          if (r1 == teamNumber)
+          if (r1 == 'frc'+teamNumber)
             r1 = '<b style="font-weight:bolder;">' + r1 + '</b>';
-          if (r2 == teamNumber)
+          if (r2 == 'frc'+teamNumber)
             r2 = '<b style="font-weight:bolder;">' + r2 + '</b>';
-          if (r3 == teamNumber)
+          if (r3 == 'frc'+teamNumber)
             r3 = '<b style="font-weight:bolder;">' + r3 + '</b>';
-          if (b1 == teamNumber)
+          if (b1 == 'frc'+teamNumber)
             b1 = '<b style="font-weight:bolder;">' + b1 + '</b>';
-          if (b2 == teamNumber)
+          if (b2 == 'frc'+teamNumber)
             b2 = '<b style="font-weight:bolder;">' + b2 + '</b>';
-          if (b3 == teamNumber)
+          if (b3 == 'frc'+teamNumber)
             b3 = '<b style="font-weight:bolder;">' + b3 + '</b>';
           if (jd[i].alliances.red.teams[2] == undefined) scoreshtml += ('<td class="red">' + r1 + ", " + r2 + '</td>');
           else scoreshtml += ('<td class="red">' + r1 + ", " + r2 + ", " + r3 + '</td>');
@@ -103,7 +103,7 @@ $(document).ready(function() {
           scoreshtml += ('<td class="blue">' + jd[i].blue.score + '</td>');
           if (jd[i].blue.score == -1)
             scoreshtml += ('<td>Unplayed</td>');
-          else if ((jd[i].alliances.red.teams[0] == teamNumber) || (jd[i].alliances.red.teams[1] == teamNumber) || (jd[i].alliances.red.teams[2] == teamNumber)) {
+          else if ((jd[i].alliances.red.teams[0] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[1] == 'frc'+teamNumber) || (jd[i].alliances.red.teams[2] == 'frc'+teamNumber)) {
             if (parseInt(jd[i].red.score) > highScore) {
               highScore = parseInt(jd[i].red.score)
             }
